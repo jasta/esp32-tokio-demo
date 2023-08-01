@@ -25,6 +25,7 @@ embedded-hal = "0.2.7"
 log = "0.4.17"
 anyhow = "1"
 tokio = { version = "*", features = ["rt", "net", "io-util"] }
+mio = { version = "0.8.8", features = ["log"] }
 
 [build-dependencies]
 embuild = "0.31.0"

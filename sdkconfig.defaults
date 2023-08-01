@@ -1,4 +1,6 @@
-CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+# Set to VERBOSE to debug issues if things aren't working properly... for your
+# application you probably want INFO.
+CONFIG_LOG_DEFAULT_LEVEL_VERBOSE=y
 CONFIG_LOG_MAXIMUM_EQUALS_DEFAULT=y
 
 # The tokio runtime and typical programs built with it need quite a bit of

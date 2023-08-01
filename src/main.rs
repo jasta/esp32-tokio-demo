@@ -49,8 +49,10 @@ fn main() -> anyhow::Result<()> {
         wifi_loop.configure().await?;
         wifi_loop.initial_connect().await?;
 
+        info!("Preparing to launch echo server...");
         tokio::spawn(echo_server());
 
+        info!("Entering main Wi-Fi run loop...");
         wifi_loop.stay_connected().await
       })?;
 
@@ -93,7 +95,6 @@ impl<'a> WifiLoop<'a> {
       // way too difficult to showcase the core logic of an example and have
       // a proper Wi-Fi event loop without a robust async runtime.  Fortunately, we can do it
       // now!
-      info!("Idling while Wi-Fi is up...");
       wifi.wifi_wait(|| wifi.is_up(), None).await?;
 
       info!("Connecting to Wi-Fi...");
@@ -116,7 +117,7 @@ async fn echo_server() -> anyhow::Result<()> {
   let listener = TcpListener::bind(&addr).await?;
 
   loop {
-    info!("Waiting for new connection...");
+    info!("Waiting for new connection on socket: {listener:?}");
     let (socket, _) = listener.accept().await?;
 
     info!("Spawning handle for: {socket:?}...");
