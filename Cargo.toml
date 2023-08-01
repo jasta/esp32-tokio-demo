@@ -24,7 +24,7 @@ embedded-svc = { version = "0.25.3", features = ["experimental"] }
 embedded-hal = "0.2.7"
 log = "0.4.17"
 anyhow = "1"
-tokio = "*"
+tokio = { version = "*", features = ["rt", "net", "io-util"] }
 
 [build-dependencies]
 embuild = "0.31.0"
