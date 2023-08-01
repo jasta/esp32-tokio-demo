@@ -5,7 +5,6 @@ CONFIG_LOG_MAXIMUM_EQUALS_DEFAULT=y
 # stack space, but the good news is that you don't need many pthreads for
 # a complete application.
 CONFIG_ESP_MAIN_TASK_STACK_SIZE=16000
-CONFIG_PTHREAD_TASK_STACK_SIZE_DEFAULT=10000
 
 # Use this to set FreeRTOS kernel tick frequency to 1000 Hz (100 Hz by default).
 # This allows to use 1 ms granuality for thread sleeps (10 ms by default).
