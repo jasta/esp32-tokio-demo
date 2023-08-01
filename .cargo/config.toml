@@ -1,0 +1,39 @@
+[build]
+# Uncomment the relevant target for your chip here (ESP32, ESP32-S2, ESP32-S3 or ESP32-C3)
+#target = "xtensa-esp32-espidf"
+#target = "xtensa-esp32s2-espidf"
+#target = "xtensa-esp32s3-espidf"
+target = "riscv32imc-esp-espidf"
+#target = "riscv32imac-esp-espidf"
+
+[target.xtensa-esp32-espidf]
+linker = "ldproxy"
+runner = "espflash flash --monitor"
+rustflags = ["--cfg", "mio_unsupported_force_poll_poll", "--cfg", "espidf_time64", "-C", "default-linker-libraries"]
+
+[target.xtensa-esp32s2-espidf]
+linker = "ldproxy"
+runner = "espflash flash --monitor"
+rustflags = ["--cfg", "mio_unsupported_force_poll_poll", "--cfg", "espidf_time64", "-C", "default-linker-libraries"]
+
+[target.xtensa-esp32s3-espidf]
+linker = "ldproxy"
+runner = "espflash flash --monitor"
+rustflags = ["--cfg", "mio_unsupported_force_poll_poll", "--cfg", "espidf_time64", "-C", "default-linker-libraries"]
+
+[target.riscv32imc-esp-espidf]
+linker = "ldproxy"
+runner = "espflash flash --monitor"
+rustflags = ["--cfg", "mio_unsupported_force_poll_poll", "--cfg", "espidf_time64", "-C", "default-linker-libraries"]
+
+[target.riscv32imac-esp-espidf]
+linker = "ldproxy"
+runner = "espflash flash --monitor"
+rustflags = ["--cfg", "mio_unsupported_force_poll_poll", "--cfg", "espidf_time64", "-C", "default-linker-libraries"]
+
+[unstable]
+build-std = ["std", "panic_abort"]
+
+[env]
+ESP_IDF_VERSION = "release/v5.0"
+CROSS_COMPILE = { value = ".embuild/espressif/tools/riscv32-esp-elf/esp-12.2.0_20230208/riscv32-esp-elf/bin/riscv32-esp-elf", relative = true }
