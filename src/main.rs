@@ -11,8 +11,12 @@ use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
 
 // Edit these or provide your own way of provisioning...
-const WIFI_SSID: &'static str = "The password is password";
-const WIFI_PASS: &'static str = "password";
+const WIFI_SSID: &str = "The password is password";
+const WIFI_PASS: &str = "password";
+
+// To test, run `cargo run`, then when the server is up, use `nc -v espressif 12345` from
+// a machine on the same Wi-Fi network.
+const TCP_LISTENING_PORT: u16 = 12345;
 
 esp_app_desc!();
 
@@ -20,7 +24,8 @@ fn main() -> anyhow::Result<()> {
   esp_idf_sys::link_patches();
   esp_idf_svc::log::EspLogger::initialize_default();
 
-  // eventfd is needed by our mio poll implementation
+  // eventfd is needed by our mio poll implementation.  Note you should set max_fds
+  // higher if you have other code that may need eventfd.
   info!("Setting up eventfd...");
   let config = esp_idf_sys::esp_vfs_eventfd_config_t {
     max_fds: 1,
@@ -111,7 +116,7 @@ impl<'a> WifiLoop<'a> {
 }
 
 async fn echo_server() -> anyhow::Result<()> {
-  let addr = "0.0.0.0:12345";
+  let addr = format!("0.0.0.0:{TCP_LISTENING_PORT}");
 
   info!("Binding to {addr}...");
   let listener = TcpListener::bind(&addr).await?;
