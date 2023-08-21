@@ -9,6 +9,8 @@ use esp_idf_sys::{esp, esp_app_desc, EspError};
 use log::info;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
+use tokio::time::sleep;
+use tokio::sync::oneshot;
 
 // Edit these or provide your own way of provisioning...
 const WIFI_SSID: &str = "The password is password";
@@ -50,6 +52,12 @@ fn main() -> anyhow::Result<()> {
       .enable_all()
       .build()?
       .block_on(async move {
+        let (tx, rx) = oneshot::channel();
+        tokio::spawn(async move {
+            tx.send(1234).unwrap();
+        });
+        let ret = rx.await.unwrap();
+        info!("ret={ret}");
         let mut wifi_loop = WifiLoop { wifi };
         wifi_loop.configure().await?;
         wifi_loop.initial_connect().await?;
