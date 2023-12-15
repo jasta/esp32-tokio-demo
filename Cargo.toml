@@ -18,9 +18,9 @@ socket2 = { git = "https://github.com/rust-lang/socket2", branch = "master" }
 
 [dependencies]
 esp-idf-sys = { version = "0.33.1", features = ["binstart"] }
-esp-idf-svc = { version = "0.46.0", features = ["experimental"] }
-esp-idf-hal = "0.41.2"
-embedded-svc = { version = "0.25.3", features = ["experimental"] }
+esp-idf-svc = { version = "0.47.3", features = ["experimental"] }
+esp-idf-hal = "0.42.5"
+embedded-svc = { version = "0.26.4", features = ["experimental"] }
 embedded-hal = "0.2.7"
 log = "0.4.17"
 anyhow = "1"
